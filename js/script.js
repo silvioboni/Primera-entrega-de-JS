@@ -1,20 +1,28 @@
 //Variables del MENÜ//
 
-let nombreProductoA = "Sushi"
-let precioProductoA = 500
-let stockProductoA = 100
-
-
-let nombreProductoB = "Vino"
-let precioProductoB = 600
-let stockProductoB = 20
-
-
-let nombreProductoC = "Helado"
-let precioProductoC = 300
-let stockProductoC =50
-
+function Producto (nombre,precio,stock) {
+    this.nombre =nombre;
+    this.precio = precio;
+    this.stock= stock;
+    this.restaStock = function (cantidad) {
+        this.stock -= cantidad
+    }
+    this.sumarStock = function (cantidad) {
+        this.stock += cantidad
+    }
+}
 let precioTotal = 0
+let productoA = new Producto ("Sushi", 500, 100)
+let productoB = new Producto ("Vino",600,20)
+let productoC = new Producto ("Helado", 300, 50)
+let productoD = new Producto ("Panqueque", 250, 0)
+let productoE = new Producto ("Sashimi", 400,30)
+
+let listaProductos = [productoA, productoB, productoC, productoD, productoE]
+
+let listaProductosConStock = listaProductos.filter ((prod) => prod.stock > 0)
+
+let listaNombres = listaProductosConStock.map( (prod) => prod.nombre)
 
 //FUNCIONES //
 
@@ -26,33 +34,43 @@ function calcularStock (cantidad,stock,precio) {
     if (cantidad <= stock){
         calcularPrecio (cantidad, precio)
     }
-    else {alert ("No nos queda esa cantidad de " + nombreProductoA + ". Actualmente tenemos " + stock +" de ese producto")}
+    else {alert ("No nos queda esa cantidad de " + productoA.nombre + ". Actualmente tenemos " + productoA.stock +" de ese producto")}
 }
 
-alert ( "Nuestro Menú:\n* " + nombreProductoA + "\n* " + nombreProductoB + "\n* " + nombreProductoC  )
+alert ( "Nuestro Menú:\n - " + listaNombres.join("\n - ")  )
 
 let VariedadDeArticulos = parseInt (prompt ("¿qué cantidad de productos distintos quiere?"))
 
 for (let i= 0; i < VariedadDeArticulos; i= i + 1) {
 
 
-    let productoCompra = prompt ("Ingrese que productor quiere comprar\n* " + nombreProductoA + "\n* " + nombreProductoB + "\n* " + nombreProductoC)
+    let productoCompra = prompt ("Ingrese que productor quiere comprar\n - " + listaNombres.join("\n - "))
 
 
     if (productoCompra.toLowerCase () == "sushi") 
-    {let cantidadProductoA = prompt ("Ingrese la cantidad que quiere de " + nombreProductoA )
-        calcularStock (cantidadProductoA,stockProductoA,precioProductoA)
+    {let cantidadProductoA = prompt ("Ingrese la cantidad que quiere de " + productoA.nombre )
+        calcularStock (cantidadProductoA,productoA.stock,productoA.precio)
 
     }
     else if (productoCompra.toLowerCase () == "vino")
-    {let cantidadProductoB = prompt ("Ingrese la cantidad que quiere de " + nombreProductoB )
-        calcularStock (cantidadProductoB,stockProductoB,precioProductoB)
+    {let cantidadProductoB = prompt ("Ingrese la cantidad que quiere de " + productoB.nombre )
+        calcularStock (cantidadProductoB,productoB.stock,productoB.precio)
+        
     }
     else if (productoCompra.toLowerCase () == "helado")
-    {let cantidadProductoC = prompt ("Ingrese la cantidad que quiere de " + nombreProductoC )
-    calcularStock (cantidadProductoC,stockProductoC,precioProductoC)
-
+    {let cantidadProductoC = prompt ("Ingrese la cantidad que quiere de " + productoC.nombre )
+    calcularStock (cantidadProductoC,productoC.stock,productoC.precio)
     }
+    else if (productoCompra.toLowerCase () == "panqueque")
+    {let cantidadProductoD = prompt ("Ingrese la cantidad que quiere de " + productoD.nombre )
+    calcularStock (cantidadProductoD,productoD.stock,productoD.precio)
+    }
+    else if (productoCompra.toLowerCase () == "sashimi")
+    {let cantidadProductoE = prompt ("Ingrese la cantidad que quiere de " + productoE.nombre )
+    calcularStock (cantidadProductoE,productoE.stock,productoE.precio)
+    }
+    
+    
     else{
     alert("No tenemos ese producto")}
 
